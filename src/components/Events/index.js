@@ -1,6 +1,7 @@
 import {Component} from 'react'
-import EventItem from '../EventItem'
+
 import ActiveEventRegistrationDetails from '../ActiveEventRegistrationDetails'
+import EventItem from '../EventItem'
 
 import './index.css'
 
@@ -53,46 +54,53 @@ const eventsList = [
     registrationStatus: 'REGISTRATIONS_CLOSED',
   },
 ]
-// Write your code here
-
-const registrationStatusConstants = {
-  initial: 'INITIAL',
-  yetToRegister: 'YET_TO_REGISTER',
-  registered: 'REGISTERED',
-  registrationsClosed: 'REGISTRATIONS_CLOSED',
-}
 
 class Events extends Component {
   state = {
-    registrationStatus: registrationStatusConstants.initial,
+    activeEventId: '',
   }
 
-  selectEvent = id => {
-    const obj = eventsList.find(each => each.id === id)
-    const regStatus = obj.registrationStatus
-    this.setState({
-      registrationStatus: regStatus,
-    })
+  getActiveEventRegistrationStatus = () => {
+    const {activeEventId} = this.state
+    const activeEventDetails = eventsList.find(
+      event => event.id === activeEventId,
+    )
+    if (activeEventDetails) {
+      return activeEventDetails.registrationStatus
+    }
+    return ''
+  }
+
+  setActiveEventId = id => {
+    this.setState({activeEventId: id})
+  }
+
+  renderEventsList = () => {
+    const {activeEventId} = this.state
+    return (
+      <ul className="events-list">
+        {eventsList.map(eachEvent => (
+          <EventItem
+            key={eachEvent.id}
+            eventDetails={eachEvent}
+            setActiveEventId={this.setActiveEventId}
+            isActive={eachEvent.id === activeEventId}
+          />
+        ))}
+      </ul>
+    )
   }
 
   render() {
-    const {registrationStatus} = this.state
-    console.log(registrationStatus)
     return (
-      <div className="app-container">
-        <div className="events-container">
-          <h1 className="event-heading">Events</h1>
-          <ul className="event-list">
-            {eventsList.map(eachEvent => (
-              <EventItem
-                eventDetails={eachEvent}
-                selectEvent={this.selectEvent}
-                key={eachEvent.id}
-              />
-            ))}
-          </ul>
+      <div className="events-container">
+        <div className="events-content">
+          <h1 className="heading">Events</h1>
+          {this.renderEventsList()}
         </div>
-        <ActiveEventRegistrationDetails status={registrationStatus} />
+        <ActiveEventRegistrationDetails
+          activeEventRegistrationStatus={this.getActiveEventRegistrationStatus()}
+        />
       </div>
     )
   }
