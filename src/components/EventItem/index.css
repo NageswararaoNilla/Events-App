@@ -1,1 +1,35 @@
-/* Write your CSS here */
+.event-item {
+  list-style-type: none;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.img-btn {
+  background-color: transparent;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.selected-img {
+  outline: 1px solid #2dd4bf;
+}
+
+.event-img {
+  width: 300px;
+}
+
+.card-heading {
+  color: #ffffff;
+  font-family: 'Roboto';
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.location {
+  color: #ffffff;
+  font-family: 'Roboto';
+  font-size: 15px;
+  font-weight: 500;
+}

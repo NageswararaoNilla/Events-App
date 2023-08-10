@@ -1,1 +1,34 @@
-/* Write your CSS here */
+.app-container {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 992px) {
+  .app-container {
+    flex-direction: row;
+  }
+}
+
+.events-container {
+  background-color: #475569;
+  padding: 40px;
+}
+
+@media screen and (min-width: 992px) {
+  .events-container {
+    width: 60%;
+  }
+}
+
+.event-heading {
+  color: #ffffff;
+  font-family: 'Roboto';
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.event-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+}
